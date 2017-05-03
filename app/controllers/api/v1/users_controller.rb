@@ -1,13 +1,17 @@
 class Api::V1::UsersController < ApplicationController
+    before_action :authenticate_token!, only: [:show]
 
     def show
-        @user = User.find(params[:id])
+        @user = nil
+        if current_user.id.to_s == params[:id]
+            @user = User.find(params[:id])
+        end
 
-        if @user
+        if @user.id.to_s == params[:id]
             render 'users/user.json.jbuilder', user: @user
         else
             render json: {
-                errors: @user.errors
+                errors: 'Invalid credentials to view this user.'
             }, status: 500
         end
     end
