@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
             render 'users/user_with_jwt.json.jbuilder', user: @user
         else
             render json: {
-                @user.errors
+                errors: @user.errors
             }, status: 500
         end
     end
