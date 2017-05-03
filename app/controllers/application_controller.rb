@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
             begin
                 token = request.env['HTTP_AUTHORIZATION'].split(" ").last
                 decoded_token = JWT.decode(token, ENV['AUTH_SECRET'], true, { algorithm: ENV['AUTH_ALGORITHM'] })
-                @user_id = decoded[0]["user_id"]
+                @user_id = decoded_token[0]["user_id"]
             rescue JWT::DecodeError
                 errors = [{message: "Token is invalid."}]
             end
