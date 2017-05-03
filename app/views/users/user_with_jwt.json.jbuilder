@@ -1,4 +1,4 @@
 json.user do
     json.(@user, :id, :email)
 end
-json.token(Auth.create_token(@user.id))
+json.token(JWT.encode({user_id: @user.id}, ENV['AUTH_SECRET'], ENV['AUTH_ALGORITHM']))
