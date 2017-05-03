@@ -3,7 +3,6 @@ class Api::V1::UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
 
-        binding.pry
         if @user
             render json: @user
         else
