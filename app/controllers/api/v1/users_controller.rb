@@ -4,7 +4,7 @@ class Api::V1::UsersController < ApplicationController
         @user = User.find(params[:id])
 
         if @user
-            render json: @user
+            render 'users/user.json.jbuilder', user: @user
         else
             render json: {
                 errors: @user.errors
@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
-            render 'users/user.json.jbuilder', user: @user
+            render 'users/user_with_jwt.json.jbuilder', user: @user
         else
             render json: {
                 @user.errors
