@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: game-server_production
-  username: game-server
-  password: <%= ENV['GAME-SERVER_DATABASE_PASSWORD'] %>
+  username: phalangical
+  #password: <%= ENV['GAME-SERVER_DATABASE_PASSWORD'] %>
