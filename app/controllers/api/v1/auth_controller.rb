@@ -2,14 +2,15 @@ class Api::V1::AuthController < ApplicationController
     before_action :authenticate_token!, only: [:refresh]
 
     def login
-        @user = User.find_by(email: params[:user][:email])
+        @user = User.find_by(email: params[:email])
+        
         if !@user
             render json: {
                 errors: {
                     email: "Unable to find user with provided email address"
                 }
             }, status: 500
-        elsif @user && @user.authenticate(params[:user][:password])
+        elsif @user && @user.authenticate(params[:password])
             render 'users/user_with_jwt.json.jbuilder', user: @user
         else
             render json: {
