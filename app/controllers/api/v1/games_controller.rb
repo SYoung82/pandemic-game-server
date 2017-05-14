@@ -19,4 +19,23 @@ class Api::V1::GamesController < ApplicationController
 
     end
     
+    def create
+        @user = User.find(params[:user_id])
+
+        if @user
+            @user.games.create(game_params)
+            render 'users/user.json.jbuilder'
+        else
+            render json: {
+                errors: @user.errors
+            }, status: 500
+        end
+    end
+    
+    private
+
+        def game_params
+            params.require(:state).permit!.permit!.permit!.permit!
+        end
+        
 end
